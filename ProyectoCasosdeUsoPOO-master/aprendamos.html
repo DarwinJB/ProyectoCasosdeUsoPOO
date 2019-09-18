@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<title>Aprendamos</title>
+</head>
+<body>
+	Usuario: <input type="text" id="usuario"><br/><br/>
+	Password: <input type="text" id="password"><br/><br/>
+
+	<input type="submit" value="Enviar" onclick="ajax_post();"/>
+	<div id="info"></div>
+
+	
+	<script type="text/javascript">
+		
+		var resultado = document.getElementById("info");
+
+		function ajax_post(){
+			var xmlhttp;
+			if (window.XMLHttpRequest) 
+			{
+				xmlhttp = new XMLHttpRequest();
+			} else 
+			{
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			var a = document.getElementById("usuario").value;
+			var b = document.getElementById("password").value;
+			var informacionUsuario = "usuario="+ a +"&password=" + b;
+
+			xmlhttp.onreadystatechange = function()
+			{
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					var mensaje = xmlhttp.responseText;
+					resultado.innerHTML = mensaje;
+				}
+
+			}
+
+			xmlhttp.open("POST", "index.php", true);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send(informacionUsuario);
+		}
+	</script>
+
+
+</body>
+</html>
